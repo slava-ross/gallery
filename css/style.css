@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    padding-top: 44px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.main {
+    background: linear-gradient(180deg, rgba(245, 245, 245, 0) 1.04%, #F5F5F5 100%);
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    /*    justify-content: space-between;*/
+    margin-bottom: 44px;
+}
+
+.section-title {
+    margin: 0;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 42px;
+    color: #000000;
+    margin-right: 30px;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.card {
+    background: #fff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 7px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    flex-basis: 31%;
+    text-decoration: none;
+}
+
+.card-image {
+    width: 384px;
+    height: 250px;
+    object-fit: cover;
+}
+
+.card-text {
+    padding: 24px 23px 35px;
+}
+
+.card-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-title {
+    margin: 0;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 32px;
+}
+
+.card-title-reg {
+    font-weight: normal;
+}
+
+.card-tag {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+    background: #262626;
+    border-radius: 2px;
+    padding: 1px 8px;
+}
+
+.card-info {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card-buttons {
+    display: flex;
+    align-items: center;
+    margin-top: 24px;
+}
+
+.card-price-bold {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 32px;
+    margin-left: 30px;
+}
+
+.rating {
+    margin-right: 26px;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 32px;
+    color: #FFC107;
+}
+
+.price,
+.category {
+    font-size: 18px;
+    line-height: 32px;
+    color: #8C8C8C;
+}
+
+.price {
+    margin-right: 10px;
+}
+
+.ingredients {
+    font-size: 18px;
+    line-height: 21px;
+    color: #8C8C8C;
+    margin-top: 10px;
+}
+
+.category {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 150px;
+}
