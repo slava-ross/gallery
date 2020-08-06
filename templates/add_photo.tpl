@@ -10,15 +10,15 @@
             <p>
                 <input type="submit" name="submit" value="Добавить">
             </p>
-            <p>
                 <?php
-                    if ( array_key_exists( 'errors', $vars )) {
-                        foreach( $vars['errors'] as $errorMsg ) {
+                    if (array_key_exists('errors', $vars)) {
+                        print('<p>');
+                        foreach ($vars['errors'] as $errorMsg) {
                             print('<p class="message error">'.$errorMsg.'</p>');
                         }
+                        print('</p>');
                     }
                 ?>
-            </p>
         </form>
     </div>
 </main>

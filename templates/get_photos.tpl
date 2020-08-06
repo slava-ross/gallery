@@ -3,11 +3,11 @@
     <div class="container">
         <div class="cards">
 
-        <?php if ( count( $vars['errorMessages'] ) == 0 ): ?>
+        <?php if (count( $vars['errorMessages']) == 0 ): ?>
             <?php
-                foreach ($vars['photoArray'] as $photo) {
-                    print('<a href="index.php?page=show_photo&imageName=' . $photo['photoFileName'] . '" class="card">');
-                    print('    <img src="thumbs/' . $photo['thumbFileName'] . '" alt="image" class="card-image">');
+                foreach ($vars['photoArray'] as $photoFileName) {
+                    print('<a href="index.php?page=show_photo&imageName=' . $photoFileName . '" class="card">');
+                    print('    <img src="thumbs/thumb_' . $photoFileName . '" alt="image" class="card-image">');
                     print('</a>');
                 }
             ?>

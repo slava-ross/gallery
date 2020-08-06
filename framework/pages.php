@@ -17,15 +17,17 @@
             *   -V- @result{ array }: массив с результатами работы методов объекта, содержащий как рабочую информацию, так и сообщения об ошибках;
             */
             include ('framework/photos.php');
+            
             $photoSource = new photos;
             $result = array();
-/*
-            if ( isset( $_GET['item_id'] )) {
-                $result = $itemsSource->delItem( $_GET['item_id'] );
-            }
-            else {
-                $result = $itemsSource->getItems();
-            }*/
+            $errorMessages = array();
+            $files = array();
+
+            //$result = $photoSource->getPhotos();
+            $dir = 'images/';
+            $files = array_slice(scandir($dir), 2);
+            print_r($files);
+
             $this->getTemplate( 'templates/header.tpl',
                 array(
                     'title'=>'Фотоальбом',
@@ -34,19 +36,26 @@
             );
             $this->getTemplate( 'templates/get_photos.tpl',
                 array(
-                    'photoArray' => $result['returnResult'],
-                    'errorMessages' => $result['returnErrors'],
+                    'errorMessages' => $errorMessages,
+                    'photoArray' => $files,
+                    /*'photoArray' => $result['returnResult'],
+                    'errorMessages' => $result['returnErrors'],*/
                 )
             );
             $this->getTemplate( 'templates/footer.tpl' );
         }
-
+        /**
+         *  Метод сборки страницы добавления фотографии(й)
+         *
+         *
+         */
         private function addPhotoPage() {
             include ('framework/photos.php');
-            $photoSource = new photos;
+            $photos = new photos;
             $result = array();
 
-            $this->getTemplate( 'templates/header.tpl',
+            $this->getTemplate(
+                'templates/header.tpl',
                 array(
                     'title'=>'Добавление фотографии',
                     'styles'=>'css/add_photo.css',
@@ -54,81 +63,31 @@
             );
 
             if (isset($_POST['submit'])) {
-                   /* $result = $photo->addPhoto($_FILES['photo']);
-                    if ($result['success']) {
+                $result = $photos->addPhoto($_FILES['photo']);
+                if ($result['success']) {
 
-                        $messages[] = "Фотография добавлена";
-
-                        $this->getTemplate(
-                            'templates/header.tpl',
-                            array(
-                                'title'=>'Фотоальбом',
-                                'styles'=>'css/get_photos.css',
-                            )
-                        );
-                        $this->getTemplate(
-                            'templates/get_photos.tpl',
-                            array(
-                                'messages' => $messages
-                            )
-                        );
-                    } else { // not success
-                        $this->getTemplate(
-                            'templates/admin/header.tpl',
-                            array(
-                                'title'=>'Добавление товара',
-                                'styles'=>'css/add_item.css',
-                            )
-                        );
-                        $this->getTemplate(
-                            'templates/add_photo.tpl',
-                            array(
-                                'errors' => $result['errors']
-                            )
-                        );
-                    }*/
-                } else { // new form
-                    $this->getTemplate(
-                        'templates/header.tpl',
-                        array(
-                            'title'=>'Добавление фотографии',
-                            'styles'=>'css/add_photo.css',
-                        )
-                    );
-                    $this->getTemplate( 'templates/add_photo.tpl' );
+                    $this->getTemplate('templates/add_photo.tpl');
+                } else {        // not success
+                    $this->getTemplate('templates/add_photo.tpl');
                 }
-
-                $this->getTemplate( 'templates/footer.tpl' );
+            } else {            // new form
+                $this->getTemplate('templates/add_photo.tpl');
+            }
+            $this->getTemplate('templates/footer.tpl');
         }
-
-
-/*
-                if (isset( $_POST['submit'])) {
-                    if ( !isset( $_POST['gender'] )) $_POST['gender'] = '';
-                    if ( !isset( $_POST['city'] )) $_POST['city'] = '';
-                    $result = $itemsSource->addItem( $_POST['item_name'], $_POST['item_descr'], $_POST['item_author'], $_POST['item_date'] );
-
-                    $this->getTemplate( 'templates/add_item.tpl',
-                        array(
-                            'is_send' => true,
-                            'errorMessages' => $result['returnErrors']
-                        )
-                    );
-                }
-                else {
-                    $this->getTemplate( 'templates/add_item.tpl', array( 'is_send' => false ));
-                }
-                $this->getTemplate( 'templates/footer.tpl' );
-        }
-*/
+        /**
+         *  Метод сборки страницы отображения выбранной фотографии
+         *
+         *
+         */
         private function showPhotoPage($photoFileName) {
-            $this->getTemplate( 'templates/header.tpl',
+            $this->getTemplate('templates/header.tpl',
                 array(
-                    'title'=>$photoFileName,
+                    'title'=>'Фотография: ' . $photoFileName,
                     'styles'=>'css/show_photo.css',
                 )
             );
-            $this->getTemplate( 'templates/show_photo.tpl',
+            $this->getTemplate('templates/show_photo.tpl',
                 array(
                     'photoFileName' => $photoFileName,
                 )
@@ -137,16 +96,14 @@
         }
         /**
         *   -D- @router - Основной метод задающий "маршрут" приложения для генерации соответствующей страницы;
+        *
         */
         public function router( $page ) {
             /**
-            *   -D- Ввыбор "пути" для генерации нужной страницы;
+            *   -D- Выбор метода для генерации нужной страницы;
+            *
             */
             switch ($page) {
-                /**
-                *   -D- Ветвь создания и отображения страницы "Фотоальбом";
-                *   -D- Здесь же происходит отработка удаления фотографии из списка и последующее его отображение;
-                */
                 case 'add_photo':
                     $this->addPhotoPage();
                     break;
