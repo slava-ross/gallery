@@ -11,7 +11,7 @@ html {
 }
 
 body {
-    padding-top: 50px;
+    //padding-top: 50px;
     background: -webkit-linear-gradient(150deg, rgba(245, 245, 245, 0) 5%, #282828 90%);
     background: -o-linear-gradient(150deg, rgba(245, 245, 245, 0) 5%, #282828 90%);
     background: linear-gradient(150deg, rgba(245, 245, 245, 0) 5%, #282828 90%);

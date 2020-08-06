@@ -17,7 +17,7 @@
             *   -V- @result{ array }: массив с результатами работы методов объекта, содержащий как рабочую информацию, так и сообщения об ошибках;
             */
             include ('framework/photos.php');
-            
+
             $photoSource = new photos;
             $result = array();
             $errorMessages = array();
@@ -26,7 +26,6 @@
             //$result = $photoSource->getPhotos();
             $dir = 'images/';
             $files = array_slice(scandir($dir), 2);
-            print_r($files);
 
             $this->getTemplate( 'templates/header.tpl',
                 array(
@@ -51,6 +50,7 @@
          */
         private function addPhotoPage() {
             include ('framework/photos.php');
+            include ('framework/simple_image.php');
             $photos = new photos;
             $result = array();
 
@@ -62,18 +62,10 @@
                 )
             );
 
-            if (isset($_POST['submit'])) {
-                $result = $photos->addPhoto($_FILES['photo']);
-                if ($result['success']) {
-
-                    $this->getTemplate('templates/add_photo.tpl');
-                } else {        // not success
-                    $this->getTemplate('templates/add_photo.tpl');
-                }
-            } else {            // new form
-                $this->getTemplate('templates/add_photo.tpl');
-            }
+            $result = $photos->addPhoto($_FILES['photo']);
+            $this->getTemplate('templates/add_photo.tpl');
             $this->getTemplate('templates/footer.tpl');
+            //    if ($result['success']) {
         }
         /**
          *  Метод сборки страницы отображения выбранной фотографии

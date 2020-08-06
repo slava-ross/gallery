@@ -1,11 +1,9 @@
 <main>
     <div class="forms add_photo_form">
         <h2>Новая фотография</h2>
-        <form method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
             <p>
-                <label>Фото:<br>
-                    <input type="file" name="photo[]" multiple>
-                </label>
+                <input type="file" name="photo[]" multiple required accept="image" title="Необходимо выбрать минимум один файл">
             </p>
             <p>
                 <input type="submit" name="submit" value="Добавить">
