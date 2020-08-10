@@ -4,17 +4,8 @@
     */
     class photos {
         /**
-        *   -V- @error{ array }: массив сообщений об ошибках, передаваемых в шаблон для отображения;
-        *   -V- @photosArr{ array }: массив с информацией об изображениях, получаемой из файлов и передаваемый для дальнейших операций в другие объекты/методы приложения;
-        *   -V- @returnArray{ array }: массив с возвращаемой методами класса информацией, который содержит как рабочую информацию, так и сообщения об ошибках;
-        *   -V- @writeResult{ integer/boolean }: результат записи в файл: false - в случае возникновения ошибок, кол-во байт записанной информации - при успешном завершении;
         */
         const DEFAULT_IMAGE_DIRECTORY = 'images/';
-        private $errors = array();
-        private $photosArr = array();
-        private $returnArray = array();
-        private $writeResult = NULL;
-
         /**
          * -D - Локальный защищённый экземпляр объекта SimpleImage;
          * -V-  @simpleImage{simpleImage};
@@ -58,8 +49,10 @@
                         $success = false;
                         break;
                     }
-                    if (!in_array($fileType, $types)) {
-                        $errors[] = "Недопустимый тип файла ($fileType)! Допустимо загружать только изображения: image/gif, image/png, image/jpeg, image/pjpeg";
+                    $mimeType = mime_content_type($tmpName);
+                    if (!in_array($mimeType, $types)) {
+                        echo $mimeType;
+                        $errors[] = "Недопустимый тип файла ($mimeType)! Допустимо загружать только изображения: image/gif, image/png, image/jpeg, image/pjpeg";
                         $success = false;
                         break;
                     }
