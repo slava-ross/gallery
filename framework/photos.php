@@ -5,7 +5,8 @@
     class photos {
         /**
         */
-        const DEFAULT_IMAGE_DIRECTORY = 'images/';
+        const DEFAULT_IMAGE_DIRECTORY = 'images';
+        const DEFAULT_THUMBS_DIRECTORY = 'thumbs';
         /**
          * -D - Локальный защищённый экземпляр объекта SimpleImage;
          * -V-  @simpleImage{simpleImage};
@@ -35,7 +36,6 @@
                 }
             }
             if (count($errors) == 0) {
-                $uploadsDir = self::DEFAULT_IMAGE_DIRECTORY;
                 foreach ($photoFileArray["tmp_name"] as $key => $tmpName) {
                     //$fileName = $photoFileArray["name"][$key];
                     //$fileTmpName = $photoFileArray["tmp_name"][$key];
@@ -61,8 +61,14 @@
                         $success = false;
                         break;
                     }
+                    $uploadsDir = self::DEFAULT_IMAGE_DIRECTORY;
                     if (move_uploaded_file($tmpName, "$uploadsDir/$fileName")) {
                         $success = true;
+                        $thumbsDir = self::DEFAULT_THUMBS_DIRECTORY;
+                        
+                        $this->simpleImage->load("$uploadsDir/$fileName");
+                        $this->simpleImage->resize(200, 200);
+                        $this->simpleImage->save("$thumbsDir/thumb_$fileName");
                     } else {
                         $errors[] = "Ошибка сохранения файла!";
                     }
