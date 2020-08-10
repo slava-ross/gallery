@@ -14,20 +14,27 @@
         private $returnArray = array();
         private $writeResult = NULL;
 
-        private $simpleImage;
-
-        public function __construct()
-        {
-            $this->simpleImage = new SimpleImage;
+        /**
+         * -D - Локальный защищённый экземпляр объекта SimpleImage;
+         * -V-  @simpleImage{simpleImage};
+         */
+        private $simpleImage = NULL;
+        /**
+         * -D, Method- Экземпляр объекта SimpleImage;
+         *
+         */
+        public function addSimpleImage($simpleImage) {
+            $this->simpleImage = $simpleImage;
         }
         /**
         *   -D- @addphoto - Метод выполняющий валидацию ввода полей описания товара и добавляющий информацию о товаре в файл;
         *
         */
-        public function addPhoto ($photoFileArray) {
+        public function addPhoto($photoFileArray) {
 
             $success = false;
             $errors = array();
+            $extentions = array('jpeg','jpg','png');
 
             //$types = array('image/gif', 'image/png', 'image/jpeg', 'image/pjpeg');
 
@@ -62,12 +69,13 @@
                     } else {
                        $errors[] = "Ошибка сохранения файла!";
                     }
-                }*/
+                }
+            }*/
 // ##################################################
 
 
 
-            foreach ( $photoFileArray["error"] as $key => $error ) {
+            foreach ($photoFileArray["error"] as $key => $error) {
                 if ($error != UPLOAD_ERR_OK) {
                     $errors[] = "Не выбран файл или ошибка загрузки файла!";
                 }
@@ -75,13 +83,19 @@
 
             if (count($errors) == 0) {
                 $uploadsDir = 'images';
+                echo "<br>";
+                var_dump($photoFileArray);
+                echo "<br>";
                 foreach ($photoFileArray["tmp_name"] as $key => $tmpName) {
                     $fileName = basename($photoFileArray["name"][$key]);
-                    $path_info = pathinfo($fileName);
-                    $fileExten = $path_info['extension'];
+                    $pathInfo = pathinfo($fileName);
+                    $fileExten = $pathInfo['extension'];
+                    if (!in_array($fileExten, $extentions)) {
+                        $errors[] = "Недопустимое расширение файла ($fileExten)! Пожалуйста выберите JPEG или PNG";
+                    }
                     $newFileName = uniqid('photo_').'.'.$fileExten;
                     echo "<br>";
-                    print('TMP: '.$tmpName.' -=- NAME: '.$fileName.' -=- EXT: '.$fileExten.' -=- NEW: '.$newFileName);
+                    print_r('TMP: '.$tmpName.' -=- NAME: '.$fileName.' -=- EXT: '.$fileExten.' -=- NEW: '.$newFileName.' -=- PATH: '.$pathInfo);
                     echo "<br>";
                     if (move_uploaded_file($tmpName, "$uploadsDir/$newFileName")) {
                         $success = true;
