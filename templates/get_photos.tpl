@@ -7,7 +7,7 @@
             <?php
                 foreach ($vars['photoArray'] as $photoFileName) {
                     print('<a href="index.php?page=show_photo&imageName=' . $photoFileName . '" class="card">');
-                    print('    <img src="thumbs/thumb_' . $photoFileName . '" alt="image" class="card-image">');
+                    print('    <img src="thumbs/thumb_' . $photoFileName . '" alt="photo: ' . $photoFileName . '" class="card-image">');
                     print('</a>');
                 }
             ?>

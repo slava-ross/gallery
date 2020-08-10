@@ -9,6 +9,7 @@
         *   -V- @returnArray{ array }: массив с возвращаемой методами класса информацией, который содержит как рабочую информацию, так и сообщения об ошибках;
         *   -V- @writeResult{ integer/boolean }: результат записи в файл: false - в случае возникновения ошибок, кол-во байт записанной информации - при успешном завершении;
         */
+        const DEFAULT_IMAGE_DIRECTORY = 'images/';
         private $errors = array();
         private $photosArr = array();
         private $returnArray = array();
@@ -34,70 +35,40 @@
 
             $success = false;
             $errors = array();
-            $extentions = array('jpeg','jpg','png');
-
-            //$types = array('image/gif', 'image/png', 'image/jpeg', 'image/pjpeg');
-
-            /*if (!in_array($_FILES['file']['type'], $types)){
-                 echo 'Недопустимый тип файла. Допустимо загружать только изображения: *.gif, *.png, *.jpg';
-            }*/
-// ##################################################
-/*            if (isset($_FILES['photo'])) {
-                $errors = array();
-                $file_name = $_FILES['photo']['name'];
-                $file_size = $_FILES['photo']['size'];
-                $file_tmp = $_FILES['photo']['tmp_name'];
-                $file_type = $_FILES['photo']['type'];
-                $file_ext = strtolower(end(explode('.',$_FILES['photo']['name'])));
-                echo "<br>";
-                print('TMP: '.$file_tmp.' ### NAME: '.$file_name.' ### EXT: '.$file_ext.' ### SIZE: '.$file_size.' ### TYPE: '.$file_type);
-                echo "<br>";
-
-                $extentions = array('jpeg','jpg','png');
-
-                if (!in_array($file_ext, $extentions)) {
-                    $errors[] = "Недопустимое расширение файла! Пожалуйста выберите JPEG или PNG";
-                }
-
-                if ($file_size > 16777216) {
-                    $errors[] = "Недопустимый размер файла! Пожалуйста выберите файл объёмом не более 16 Мб";
-                }
-
-                if (count($errors) == 0) {
-                    if (move_uploaded_file($file_tmp, "images/".$file_name)) {
-                        $success = true;
-                    } else {
-                       $errors[] = "Ошибка сохранения файла!";
-                    }
-                }
-            }*/
-// ##################################################
-
-
+            $extentions = array('jpeg','jpg','png', 'gif');
+            $types = array('image/gif', 'image/png', 'image/jpeg', 'image/pjpeg');
 
             foreach ($photoFileArray["error"] as $key => $error) {
                 if ($error != UPLOAD_ERR_OK) {
                     $errors[] = "Не выбран файл или ошибка загрузки файла!";
                 }
             }
-
             if (count($errors) == 0) {
-                $uploadsDir = 'images';
-                echo "<br>";
-                var_dump($photoFileArray);
-                echo "<br>";
+                $uploadsDir = self::DEFAULT_IMAGE_DIRECTORY;
                 foreach ($photoFileArray["tmp_name"] as $key => $tmpName) {
+                    //$fileName = $photoFileArray["name"][$key];
+                    //$fileTmpName = $photoFileArray["tmp_name"][$key];
                     $fileName = basename($photoFileArray["name"][$key]);
+                    $fileSize = $photoFileArray["size"][$key];
+                    $fileType = $photoFileArray["type"][$key];
                     $pathInfo = pathinfo($fileName);
                     $fileExten = $pathInfo['extension'];
                     if (!in_array($fileExten, $extentions)) {
-                        $errors[] = "Недопустимое расширение файла ($fileExten)! Пожалуйста выберите JPEG или PNG";
+                        $errors[] = "Недопустимое расширение файла ($fileExten)! Пожалуйста выберите JPEG, PNG или GIF";
+                        $success = false;
+                        break;
                     }
-                    $newFileName = uniqid('photo_').'.'.$fileExten;
-                    echo "<br>";
-                    print_r('TMP: '.$tmpName.' -=- NAME: '.$fileName.' -=- EXT: '.$fileExten.' -=- NEW: '.$newFileName.' -=- PATH: '.$pathInfo);
-                    echo "<br>";
-                    if (move_uploaded_file($tmpName, "$uploadsDir/$newFileName")) {
+                    if (!in_array($fileType, $types)) {
+                        $errors[] = "Недопустимый тип файла ($fileType)! Допустимо загружать только изображения: image/gif, image/png, image/jpeg, image/pjpeg";
+                        $success = false;
+                        break;
+                    }
+                    if ($fileSize > 16777216) {
+                        $errors[] = "Недопустимый размер файла! Пожалуйста выберите файл объёмом не более 16 Мб";
+                        $success = false;
+                        break;
+                    }
+                    if (move_uploaded_file($tmpName, "$uploadsDir/$fileName")) {
                         $success = true;
                     } else {
                         $errors[] = "Ошибка сохранения файла!";
@@ -114,11 +85,14 @@
         *
         */
         public function getPhotos() {
-
-
-            $this->returnArray['returnErrors'] = $this->errors;
-            $this->returnArray['returnResult'] = $this->photosArr;
-            return $this->returnArray;
+            $files = array();
+            $errors = array();
+            $dir = self::DEFAULT_IMAGE_DIRECTORY;
+            $files = array_slice(scandir($dir), 2);
+            return [
+                'result'  => $files,
+                'errors'  => $errors,
+            ];
         }
     }
 ?>

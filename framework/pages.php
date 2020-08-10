@@ -7,8 +7,8 @@
         /**
         *   -D- @getTemplate - Метод подключения шаблона с передачей ему необходимых для отображения страницы параметров;
         */
-        public function getTemplate( $file, $vars=array() ) {
-            include( $file );
+        public function getTemplate($file, $vars=array()) {
+            include($file);
         }
 
         private function getPhotosPage() {
@@ -19,13 +19,7 @@
             include ('framework/photos.php');
 
             $photoSource = new photos;
-            $result = array();
-            $errorMessages = array();
-            $files = array();
-
-            //$result = $photoSource->getPhotos();
-            $dir = 'images/';
-            $files = array_slice(scandir($dir), 2);
+            $result = $photoSource->getPhotos();
 
             $this->getTemplate( 'templates/header.tpl',
                 array(
@@ -35,10 +29,8 @@
             );
             $this->getTemplate( 'templates/get_photos.tpl',
                 array(
-                    'errorMessages' => $errorMessages,
-                    'photoArray' => $files,
-                    /*'photoArray' => $result['returnResult'],
-                    'errorMessages' => $result['returnErrors'],*/
+                    'photoArray' => $result['result'],
+                    'errorMessages' => $result['errors'],
                 )
             );
             $this->getTemplate( 'templates/footer.tpl' );
@@ -80,7 +72,7 @@
                     );
                 } else { // not success
                     $this->getTemplate(
-                        'templates/admin/header.tpl',
+                        'templates/header.tpl',
                         array(
                             'title'=>'Добавление фотографии',
                             'styles'=>'css/add_photo.css',
