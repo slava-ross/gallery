@@ -46,54 +46,39 @@
 
             include ('framework/photos.php');
             $photos = new photos;
-            
-            $photos->addSimpleImage($simpleImage);
 
+            $photos->addSimpleImage($simpleImage);
             $result = array();
+
+            $this->getTemplate(
+                'templates/header.tpl',
+                array(
+                    'title'=>'Добавление фотографии',
+                    'styles'=>'css/add_photo.css',
+                )
+            );
 
             if( isset( $_POST['submit'] )) {
                 $result = $photos->addPhoto($_FILES['photo']);
-
+                
                 if ($result['success']) {
                     $messages[] = "Фотография добавлена в альбом";
-                    $this->getTemplate(
-                        'templates/header.tpl',
-                        array(
-                            'title'=>'Добавление фотографии',
-                            'styles'=>'css/add_photo.css',
-                        )
-                    );
+                    
                     $this->getTemplate(
                         'templates/add_photo.tpl',
                         array(
-                            'is_added' => true,
                             'messages' => $messages,
                         )
                     );
                 } else { // not success
                     $this->getTemplate(
-                        'templates/header.tpl',
-                        array(
-                            'title'=>'Добавление фотографии',
-                            'styles'=>'css/add_photo.css',
-                        )
-                    );
-                    $this->getTemplate(
                         'templates/add_photo.tpl',
                         array(
-                            'is_added' => false,
                             'errors' => $result['errors'],
                         )
                     );
                 }
             } else { // new form
-                $this->getTemplate(
-                    'templates/header.tpl',
-                    array(
-                        'title'=>'Добавление фотографии',
-                        'styles'=>'css/add_photo.css',
-                    )
-                );
                 $this->getTemplate('templates/add_photo.tpl');
             }
             $this->getTemplate('templates/footer.tpl');

@@ -25,19 +25,6 @@
     flex-basis: 200px;
     height: 200px;
     width: 200px;
-    padding: auto;
     margin: 0 20px 40px;
     text-decoration: none;
-}
-
-.error {
-  color: red;
-  text-align: center;
-  font-weight: bold;
-}
-
-.message {
-  color: black
-  text-align: center;
-  font-weight: bold;
 }
