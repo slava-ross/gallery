@@ -5,61 +5,52 @@ html {
     height: 100%;
     width: 100%;
 }
-
 body {
     background: linear-gradient(150deg, rgba(245, 245, 245, 0) 5%, #282828 100%) no-repeat;
     background-attachment: fixed;
-	font-family: "Arial", sans-serif;
-	font-size: 14px;
-	line-height: 1.4;
-	margin: 0;
+    font-family: "Arial", sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
 }
-
 h2,h3 {
-	text-align: center;
+    text-align: center;
 }
-
 header {
-	display: flex;
-	background-color: darkgray;
-	margin: 0px auto 0px;
+    display: flex;
+    background-color: darkgray;
+    margin: 0px auto 0px;
 }
-
 main {
-	width: 100%;
-	margin: 0 auto;
+    width: 100%;
+    margin: 0 auto;
 }
-
 .main_menu {
-	display: block;
-	margin: auto;
-	padding: 0;
-	list-style: none;
-	border: 5px solid darkgray;
+    display: block;
+    margin: auto;
+    padding: 0;
+    list-style: none;
+    border: 5px solid darkgray;
 }
-
 .main_menu a {
-	display: block;
-	font-size: 18px;
-	font-weight: bold;
-	margin-left: -1px;
-	padding: 10px 40px;
-	color: black;
-	text-decoration: none;
-	background-color: darkgray;
-	border-left: 1px solid #e5e5e5;
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: -1px;
+    padding: 10px 40px;
+    color: black;
+    text-decoration: none;
+    background-color: darkgray;
+    border-left: 1px solid #e5e5e5;
 }
-
-
 .main_menu a:hover {
-	background-color: #eeeeee;
-	color: 555555;
+    background-color: #eeeeee;
+    color: 555555;
 }
-
 .main_menu li {
-	display: inline-block;
-	margin-right: -4px;
+    display: inline-block;
+    margin-right: -4px;
 }
 .main_menu li:last-child {
-	border-right: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
 }
