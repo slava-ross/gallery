@@ -67,7 +67,11 @@
                         $thumbsDir = self::DEFAULT_THUMBS_DIRECTORY;
                         
                         $this->simpleImage->load("$uploadsDir/$fileName");
-                        $this->simpleImage->resize(200, 200);
+                        if ($this->simpleImage->getWidth() < $this->simpleImage->getHeight()) {
+                            $this->simpleImage->resizeToWidth(200);
+                        } else {
+                            $this->simpleImage->resizeToHeight(200);
+                        }
                         $this->simpleImage->save("$thumbsDir/thumb_$fileName");
                     } else {
                         $errors[] = "Ошибка сохранения файла!";

@@ -103,16 +103,16 @@
          *
          *
          */
-        private function showPhotoPage($photoFileName) {
+        private function showPhotoPage($imageFileName) {
             $this->getTemplate('templates/header.tpl',
                 array(
-                    'title'=>'Фотография: ' . $photoFileName,
+                    'title'=>'Фотография: ' . $imageFileName,
                     'styles'=>'css/show_photo.css',
                 )
             );
             $this->getTemplate('templates/show_photo.tpl',
                 array(
-                    'photoFileName' => $photoFileName,
+                    'imageFileName' => $imageFileName,
                 )
             );
             $this->getTemplate( 'templates/footer.tpl' );
@@ -131,7 +131,7 @@
                     $this->addPhotoPage();
                     break;
                 case 'show_photo':
-                    $this->showPhotoPage($_GET['imageName']);
+                    $this->showPhotoPage($_GET['image_name']);
                     break;
                 case 'get_photos':
                 default:

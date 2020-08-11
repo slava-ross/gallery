@@ -16,18 +16,18 @@
 }
 
 .card {
-    background: #f0f;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
     border-radius: 7px;
     overflow: hidden;
     flex-basis: 200px;
     height: 200px;
+    width: 200px;
+    padding: auto;
     margin: 0 20px 40px;
     text-decoration: none;
-}
-
-.card-image {
-    width: 200px;
-    height: 200px;
 }
 
 .error {

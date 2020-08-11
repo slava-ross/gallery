@@ -1,14 +1,6 @@
         <main>
-            <div class="main_section">
-                <div class="main_block">
-                    <?php 
-                        if ( $vars['message'] == '' ) {
-                            print ('<h2>Файл: </h2>
-                                <p>Описание</p>'
-                            );
-                        }
-                        else print ( $vars['message'] );
-                    ?>
-                </div>
+            <h2><?php print $vars['imageFileName']; ?></h2>
+            <div class="image_block">
+                <?php print('<img src="images/' . $vars['imageFileName'] . '" alt="photo: ' .$vars['imageFileName'] . '" class="image">'); ?>
             </div>
         </main>
