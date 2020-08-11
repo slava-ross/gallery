@@ -88,12 +88,20 @@
         *
         */
         public function getPhotos() {
-            $files = array();
+            $result = array();
             $errors = array();
             $dir = self::DEFAULT_IMAGE_DIRECTORY;
-            $files = array_slice(scandir($dir), 2);
+            $files = scandir($dir);
+            foreach ($files as $file) {
+                if ($file === '.' || $file === '..') {
+                    continue;
+                }
+                if (is_file($dir.DIRECTORY_SEPARATOR.$file)) {
+                    $result[] = $file;
+                }
+            }
             return [
-                'result'  => $files,
+                'result'  => $result,
                 'errors'  => $errors,
             ];
         }
