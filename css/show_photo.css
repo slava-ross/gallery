@@ -1,7 +1,6 @@
-/*.image_block {
-    max-width: 1280px;
-    max-height: 720px;
-}*/
+.image_block {
+    margin-top: 50px;
+}
 
 .image {
     display: block;

@@ -16,6 +16,14 @@
                         }
                         print('</p>');
                     }
+                    if (array_key_exists('messages', $vars)) {
+                        print('<p>');
+                        foreach ($vars['messages'] as $message) {
+                            print('<p class="message">'.$message.'</p>');
+                        }
+                        print('</p>');
+                    }
+
                 ?>
         </form>
     </div>
