@@ -1,7 +1,6 @@
 .image_block {
-    margin-top: 50px;
+    margin-top: 50px 0 50px;
 }
-
 .image {
     display: block;
     margin-left: auto;

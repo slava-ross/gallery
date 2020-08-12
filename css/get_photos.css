@@ -13,11 +13,6 @@
     justify-content: space-evenly;
 }
 .card {
-    /*display:flex;
-    justify-content: center;
-    align-items: center;
-    flex-basis: 200px;
-    */
     display: block;
     background-color: #000;
     border-radius: 7px;

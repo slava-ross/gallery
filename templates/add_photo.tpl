@@ -5,7 +5,7 @@
             <p>
                 <input type="file" name="photo[]" multiple required accept="image" title="Необходимо выбрать минимум один файл">
             </p>
-            <p>
+            <p class = "submit_block">
                 <input type="submit" name="submit" value="Добавить">
             </p>
                 <?php
@@ -23,7 +23,6 @@
                         }
                         print('</p>');
                     }
-
                 ?>
         </form>
     </div>
